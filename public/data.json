@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-17T14:16:13.099Z",
+  "updatedAt": "2026-09-17T14:31:51.350Z",
   "clients": [
+    {
+      "id": "reg_mu5momd1_w3wdep",
+      "caseNumber": "HERMES-2176",
+      "clientName": "Алимахан Турымшаева",
+      "iin": "",
+      "phone": "77013492561",
+      "email": "alimahan.1950@gmail.com",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #2176 · Core #2176",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-09-17T14:31:51.349Z",
+      "updatedAt": "2026-09-17T14:31:51.349Z",
+      "plannedPayoutFrom": "2026-09-17",
+      "plannedPayoutTo": "2026-09-20",
+      "crmClientId": 2176,
+      "coreUserId": 2176
+    },
     {
       "id": "reg_mu5i5hlw_y6e8yw",
       "caseNumber": "HERMES-265",
