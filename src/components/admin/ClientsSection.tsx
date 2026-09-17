@@ -433,7 +433,7 @@ export function ClientsSection() {
                 <th>Клиент</th>
                 <th>Сумма ₸</th>
                 <th>Статус</th>
-                <th>Обновлён</th>
+                <th>План выплаты</th>
                 <th>Тип</th>
                 <th></th>
               </tr>
@@ -596,8 +596,9 @@ export function ClientsSection() {
                   <input value={form.caseNumber} onChange={e => setForm(v => ({ ...v, caseNumber: e.target.value }))} className="admin-input font-mono" />
                 </div>
                 <div>
-                  <label className="admin-label">Дата обновления (на сайте)</label>
+                  <label className="admin-label">Планируемая выплата (дата в общем списке)</label>
                   <input type="date" value={form.updatedAtDate} onChange={e => setForm(v => ({ ...v, updatedAtDate: e.target.value }))} className="admin-input" />
+                  <p className="text-white/35 text-[11px] mt-1">Чем раньше дата — тем выше клиент в публичном списке (быстрее очередь).</p>
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

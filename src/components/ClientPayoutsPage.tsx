@@ -11,6 +11,7 @@ import {
   findPayoutByQuery,
   formatKzt,
   getClientPayouts,
+  mergePayoutRegistry,
   maskPhone,
   REGISTRY_STUB_COUNT,
   type ClientPayoutRecord,
@@ -48,9 +49,7 @@ export function ClientPayoutsPage() {
   }, []);
 
   const registry = useMemo(() => {
-    const crmCases = new Set(crmPayouts.map((r) => r.caseNumber));
-    const filler = stubs.filter((r) => !crmCases.has(r.caseNumber));
-    return [...crmPayouts, ...filler];
+    return mergePayoutRegistry(crmPayouts, stubs);
   }, [stubs, crmPayouts]);
 
   const [query, setQuery] = useState("");
@@ -98,23 +97,17 @@ export function ClientPayoutsPage() {
 
   return (
     <div>
-      <div className="rz-page-header">
-        <div className="rz-page-header-inner">
-          <div
-            className="rz-breadcrumb"
-            style={{ color: "rgba(255,255,255,0.7)", paddingTop: 0, marginBottom: "0.75rem" }}
-          >
-            <Link href="/" style={{ color: "rgba(255,255,255,0.8)" }}>
-              Главная
-            </Link>
-            <span className="rz-breadcrumb-sep" style={{ color: "rgba(255,255,255,0.3)" }}>
-              /
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.8)" }}>Выплаты клиентам</span>
+      <div className="pg-page-header">
+        <div className="pg-page-header-inner">
+          <div className="pg-breadcrumb">
+            <Link href="/">Главная</Link>
+            <span className="pg-breadcrumb-sep">/</span>
+            <span>Выплаты клиентам</span>
           </div>
-          <h1 className="rz-page-title">Проверить статус обращения</h1>
-          <p className="rz-page-desc">
-            Поиск по номеру дела, ИИН или ФИО в реестре Агентства.
+          <h1 className="pg-page-title">Проверить статус обращения</h1>
+          <p className="pg-page-desc">
+            Найдите себя по фамилии, телефону, ИИН или номеру дела. В общем списке
+            записи упорядочены по планируемой дате выплаты — выше значит раньше.
           </p>
         </div>
       </div>
@@ -147,7 +140,7 @@ export function ClientPayoutsPage() {
                 htmlFor="payout-query"
                 style={{ display: "block", fontWeight: 600, marginBottom: "0.5rem", fontSize: "0.9rem" }}
               >
-                Номер дела, ИИН или ФИО
+                Номер дела, фамилия, телефон или ИИН
               </label>
               <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
                 <input
@@ -155,13 +148,13 @@ export function ClientPayoutsPage() {
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder=""
+                  placeholder="Например: Нурбаев / +7700… / 12 цифр ИИН"
                   autoComplete="off"
-                  className="rz-form-input"
+                  className="pg-form-input"
                   style={{ minWidth: 280, flex: 1 }}
                   disabled={searching}
                 />
-                <button type="submit" className="rz-btn rz-btn-primary" disabled={searching || !query.trim()}>
+                <button type="submit" className="pg-btn pg-btn-primary" disabled={searching || !query.trim()}>
                   {searching ? "Поиск…" : "Проверить"}
                 </button>
               </div>
@@ -209,12 +202,13 @@ export function ClientPayoutsPage() {
               Реестр выплат
             </h2>
             <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--color-text-secondary)" }}>
-              Нажмите на строку, чтобы открыть карточку дела
+              Сортировка по планируемой дате выплаты (раньше — выше). Реальные дела смешаны с общим реестром.
+              Ищите себя по фамилии, телефону или ИИН.
             </p>
           </div>
 
-          <div className="rz-table-wrap">
-            <table className="rz-table payout-table payout-table--clickable" dir="ltr">
+          <div className="pg-table-wrap">
+            <table className="pg-table payout-table payout-table--clickable" dir="ltr">
               <thead>
                 <tr>
                   <th>Номер дела</th>
@@ -225,7 +219,7 @@ export function ClientPayoutsPage() {
                   <th style={{ textAlign: "right" }}>Остаток</th>
                   <th>Статус</th>
                   <th>Банк</th>
-                  <th>Обновлено</th>
+                  <th>План выплаты</th>
                 </tr>
               </thead>
               <tbody>
@@ -288,10 +282,10 @@ export function ClientPayoutsPage() {
           </div>
 
           {totalPages > 1 && (
-            <div className="rz-pagination payout-pagination">
+            <div className="pg-pagination payout-pagination">
               <button
                 type="button"
-                className="rz-page-btn"
+                className="pg-page-btn"
                 disabled={page <= 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
               >
@@ -307,7 +301,7 @@ export function ClientPayoutsPage() {
                   <button
                     key={n}
                     type="button"
-                    className={`rz-page-btn ${page === n ? "active" : ""}`}
+                    className={`pg-page-btn ${page === n ? "active" : ""}`}
                     onClick={() => setPage(n)}
                   >
                     {n}
@@ -316,7 +310,7 @@ export function ClientPayoutsPage() {
               })}
               <button
                 type="button"
-                className="rz-page-btn"
+                className="pg-page-btn"
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               >

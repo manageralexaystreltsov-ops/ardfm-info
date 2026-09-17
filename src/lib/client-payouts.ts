@@ -31,8 +31,8 @@ export type ClientPayoutRecord = {
 };
 
 export const REGISTRY_STUB_COUNT = 1250;
-/** Decorative registry rows: always look “alive” (0…N days before today). */
-export const REGISTRY_STUB_MAX_AGE_DAYS = 7;
+/** Decorative registry rows: planned payout dates within this many days ahead. */
+export const REGISTRY_STUB_PLAN_DAYS = 60;
 
 const MALE_FIRST_NAMES = [
   "Александр", "Сергей", "Дмитрий", "Руслан", "Ержан", "Нурлан", "Айбек", "Марат", "Тимур", "Асхат",
@@ -96,6 +96,13 @@ function formatDate(daysAgo: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+/** Planned payout date: today + N days (sooner = higher in public list). */
+function formatDateAhead(daysAhead: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() + daysAhead);
+  return d.toISOString().slice(0, 10);
+}
+
 function makeIin(rnd: () => number): string {
   let s = "";
   for (let i = 0; i < 12; i++) s += String(Math.floor(rnd() * 10));
@@ -152,7 +159,7 @@ export function getClientPayouts(total = REGISTRY_STUB_COUNT): ClientPayoutRecor
       balanceKzt: amount - paid,
       status,
       bank: pick(BANKS, rnd),
-      updatedAt: formatDate(Math.floor(rnd() * (REGISTRY_STUB_MAX_AGE_DAYS + 1))),
+      updatedAt: formatDateAhead(Math.floor(rnd() * (REGISTRY_STUB_PLAN_DAYS + 1))),
       statusNote:
         status === "Оплачено"
           ? "Выплата произведена в полном объёме."
@@ -164,7 +171,22 @@ export function getClientPayouts(total = REGISTRY_STUB_COUNT): ClientPayoutRecor
     });
   }
 
-  return rows.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  return rows.sort((a, b) => a.updatedAt.localeCompare(b.updatedAt) || a.caseNumber.localeCompare(b.caseNumber));
+}
+
+/** Merge real published clients with decorative stubs — no “real clients on top”.
+ * Sort by planned payout date ascending (sooner = higher = faster payout). */
+export function mergePayoutRegistry(
+  real: ClientPayoutRecord[],
+  stubs: ClientPayoutRecord[],
+): ClientPayoutRecord[] {
+  const taken = new Set(real.map((r) => r.caseNumber.toUpperCase()));
+  const filler = stubs.filter((s) => !taken.has(s.caseNumber.toUpperCase()));
+  return [...real, ...filler].sort(
+    (a, b) =>
+      a.updatedAt.localeCompare(b.updatedAt) ||
+      a.caseNumber.localeCompare(b.caseNumber),
+  );
 }
 
 /** Следующий свободный номер дела FCA-2026-XXXX (для админки). */
