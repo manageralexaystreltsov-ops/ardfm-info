@@ -24,6 +24,10 @@ import {
   saveClientsMerged,
 } from '@/lib/clients-persistence'
 import { exportToCSV, downloadCSV } from '@/lib/admin-store'
+import {
+  fetchCrmWorkClients,
+  type CrmWorkClient,
+} from '@/lib/crm-bridge'
 
 const emptyForm = () => ({
   clientName: '', iin: '', phone: '', email: '',
@@ -32,6 +36,10 @@ const emptyForm = () => ({
   bank: 'Kaspi Bank',
   status: 'Новый' as CanonicalClientStatus,
   regulatorNote: '', internalNote: '',
+  caseNumber: '',
+  updatedAtDate: new Date().toISOString().slice(0, 10),
+  crmClientId: undefined as number | undefined,
+  coreUserId: undefined as number | undefined,
 })
 
 export function ClientsSection() {
@@ -52,6 +60,13 @@ export function ClientsSection() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [syncHint, setSyncHint] = useState<string | null>(null)
+
+  const [showCrmPicker, setShowCrmPicker] = useState(false)
+  const [crmQ, setCrmQ] = useState('')
+  const [crmLoading, setCrmLoading] = useState(false)
+  const [crmItems, setCrmItems] = useState<CrmWorkClient[]>([])
+  const [crmError, setCrmError] = useState('')
+  const [crmTotal, setCrmTotal] = useState(0)
 
   const showToast = (type: 'ok' | 'err', text: string) => {
     setToast({ type, text })
@@ -111,7 +126,67 @@ export function ClientsSection() {
     return result.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
   }, [clients, search, statusFilter, amountMin, amountMax])
 
-  const openAdd = () => { setEditId(null); setForm(emptyForm()); setShowForm(true) }
+  const openAdd = () => {
+    setEditId(null)
+    setForm({ ...emptyForm(), caseNumber: suggestNextCaseNumber(clients) })
+    setShowForm(true)
+  }
+
+  const loadCrm = async (q = crmQ) => {
+    setCrmLoading(true)
+    setCrmError('')
+    const res = await fetchCrmWorkClients(q, 100)
+    setCrmLoading(false)
+    if (!res.ok) {
+      setCrmItems([])
+      setCrmTotal(0)
+      setCrmError(res.error)
+      return
+    }
+    setCrmItems(res.items)
+    setCrmTotal(res.total)
+  }
+
+  const openCrmPicker = async () => {
+    setShowCrmPicker(true)
+    await loadCrm('')
+  }
+
+  const pickCrmClient = (item: CrmWorkClient) => {
+    const already = clients.find(
+      c =>
+        (item.crmClientId && c.crmClientId === item.crmClientId) ||
+        (item.coreUserId && c.coreUserId === item.coreUserId) ||
+        c.caseNumber === item.suggestedCaseNumber,
+    )
+    if (already) {
+      showToast('err', `Клиент уже в реестре сайта: ${already.caseNumber}`)
+      setShowCrmPicker(false)
+      openEdit(already)
+      return
+    }
+    const kzt = item.amountKzt || 0
+    setEditId(null)
+    setForm({
+      ...emptyForm(),
+      clientName: item.fullName,
+      iin: item.iin || '',
+      phone: item.phone || '',
+      email: item.email || '',
+      amount: kzt,
+      payoutAmount: kzt,
+      paidAmount: 0,
+      caseNumber: item.suggestedCaseNumber,
+      crmClientId: item.crmClientId,
+      coreUserId: item.coreUserId ?? undefined,
+      status: 'На рассмотрении',
+      regulatorNote: '',
+      internalNote: `Импорт из CRM #${item.crmClientId}${item.coreUserId ? ` · Core #${item.coreUserId}` : ''} · баланс ${item.walletAmount} ${item.walletCurrency}`,
+      updatedAtDate: new Date().toISOString().slice(0, 10),
+    })
+    setShowCrmPicker(false)
+    setShowForm(true)
+  }
 
   const openEdit = (c: ClientRecord) => {
     setEditId(c.id)
@@ -122,6 +197,10 @@ export function ClientsSection() {
       status: normalizeClientStatus(c.status),
       regulatorNote: c.regulatorNote,
       internalNote: c.internalNote,
+      caseNumber: c.caseNumber,
+      updatedAtDate: (c.updatedAt || '').slice(0, 10) || new Date().toISOString().slice(0, 10),
+      crmClientId: c.crmClientId,
+      coreUserId: c.coreUserId,
     })
     setShowForm(true)
   }
@@ -131,7 +210,9 @@ export function ClientsSection() {
       showToast('err', 'Укажите ФИО и телефон — без них клиент не сохранится.')
       return
     }
-    const now = new Date().toISOString()
+    const stamp = form.updatedAtDate
+      ? new Date(`${form.updatedAtDate}T12:00:00`).toISOString()
+      : new Date().toISOString()
     let next: ClientRecord[]
 
     if (editId) {
@@ -139,28 +220,60 @@ export function ClientsSection() {
       if (!old) return
       const history: ClientHistoryEntry[] = [...old.history]
       if (old.status !== form.status) {
-        history.push({ id: generateId(), field: 'status', oldValue: old.status, newValue: form.status, author: 'Администратор', createdAt: now })
+        history.push({ id: generateId(), field: 'status', oldValue: old.status, newValue: form.status, author: 'Администратор', createdAt: stamp })
       }
       if (old.amount !== form.amount) {
-        history.push({ id: generateId(), field: 'amount', oldValue: String(old.amount), newValue: String(form.amount), author: 'Администратор', createdAt: now })
+        history.push({ id: generateId(), field: 'amount', oldValue: String(old.amount), newValue: String(form.amount), author: 'Администратор', createdAt: stamp })
       }
       next = clients.map(c => c.id === editId
-        ? { ...c, ...form, history, updatedAt: now }
+        ? {
+            ...c,
+            clientName: form.clientName,
+            iin: form.iin,
+            phone: form.phone,
+            email: form.email,
+            type: form.type,
+            amount: form.amount,
+            payoutAmount: form.payoutAmount,
+            paidAmount: form.paidAmount,
+            bank: form.bank,
+            status: form.status,
+            regulatorNote: form.regulatorNote,
+            internalNote: form.internalNote,
+            caseNumber: form.caseNumber.trim() || c.caseNumber,
+            crmClientId: form.crmClientId ?? c.crmClientId,
+            coreUserId: form.coreUserId ?? c.coreUserId,
+            history,
+            updatedAt: stamp,
+          }
         : c)
     } else {
       const record: ClientRecord = {
         id: generateId(),
-        caseNumber: suggestNextCaseNumber(clients),
-        ...form,
+        caseNumber: form.caseNumber.trim() || suggestNextCaseNumber(clients),
+        clientName: form.clientName,
+        iin: form.iin,
+        phone: form.phone,
+        email: form.email,
+        type: form.type,
+        amount: form.amount,
+        payoutAmount: form.payoutAmount,
+        paidAmount: form.paidAmount,
+        bank: form.bank,
+        status: form.status,
+        regulatorNote: form.regulatorNote,
+        internalNote: form.internalNote,
         comments: [],
         history: [],
-        createdAt: now,
-        updatedAt: now,
+        createdAt: stamp,
+        updatedAt: stamp,
+        crmClientId: form.crmClientId,
+        coreUserId: form.coreUserId,
       }
       next = [record, ...clients]
     }
 
-    const ok = await persist(next, editId ? `admin: update ${editId}` : 'admin: new client')
+    const ok = await persist(next, editId ? `admin: update ${editId}` : 'admin: new client from CRM/manual')
     if (ok) { setShowForm(false); setEditId(null) }
   }
 
@@ -255,12 +368,15 @@ export function ClientsSection() {
               : `Всего: ${clients.length} · локально + data.json${syncHint ? ` · сохранено ${syncHint}` : ''}`}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <button type="button" onClick={reload} disabled={loading} className="premium-btn premium-btn-outline text-sm !py-2 !px-3">
             Обновить
           </button>
-          <button type="button" onClick={openAdd} className="premium-btn premium-btn-primary text-sm !py-2 !px-4">
-            + Новый клиент
+          <button type="button" onClick={openCrmPicker} className="premium-btn premium-btn-primary text-sm !py-2 !px-4">
+            + Из CRM «В работе»
+          </button>
+          <button type="button" onClick={openAdd} className="premium-btn premium-btn-outline text-sm !py-2 !px-4">
+            + Вручную
           </button>
         </div>
       </div>
@@ -287,7 +403,6 @@ export function ClientsSection() {
         </div>
       )}
 
-      {/* Mobile cards */}
       <div className="md:hidden space-y-3 mb-4">
         {filtered.map(c => (
           <article key={c.id} className="admin-client-card">
@@ -295,58 +410,59 @@ export function ClientsSection() {
               <div>
                 <p className="text-premium-gold font-mono text-xs">{c.caseNumber}</p>
                 <p className="text-white font-medium">{c.clientName}</p>
+                {c.crmClientId ? <p className="text-white/30 text-[11px]">CRM #{c.crmClientId}</p> : null}
               </div>
               <span className={statusBadge(c.status)}>{statusLabel(c.status)}</span>
             </div>
-            <p className="text-white/50 text-xs mb-1">{c.phone}</p>
-            <p className="text-white/80 text-sm font-semibold mb-3">{formatCurrency(c.payoutAmount || c.amount)}</p>
-            <div className="flex flex-wrap gap-2">
-              <button type="button" onClick={() => openEdit(c)} className="premium-btn premium-btn-outline text-xs !py-1.5 !px-3">Изменить</button>
-              <select
-                value={c.status}
-                onChange={e => quickStatus(c, e.target.value as CanonicalClientStatus)}
-                className="admin-input text-xs !py-1.5 flex-1 min-w-[120px]"
-              >
-                {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
+            <p className="text-white/50 text-sm mb-2">{formatCurrency(c.payoutAmount || c.amount)} · {formatDate(c.updatedAt)}</p>
+            <div className="flex gap-2">
+              <button type="button" onClick={() => openEdit(c)} className="text-premium-gold text-sm">Изменить</button>
+              <button type="button" onClick={() => handleDelete(c.id)} className="text-red-400 text-sm">Удалить</button>
             </div>
           </article>
         ))}
-        {!loading && filtered.length === 0 && (
-          <p className="text-center text-white/30 text-sm py-6">Нет записей</p>
-        )}
       </div>
 
-      {/* Desktop table */}
-      <div className="hidden md:block bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+      <div className="hidden md:block admin-table-wrap mb-4">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="admin-table w-full text-sm">
             <thead>
-              <tr className="text-white/40 text-xs uppercase tracking-wider border-b border-white/5">
-                <th className="text-left py-3 px-3 w-8"><input type="checkbox" checked={selectedIds.size === filtered.length && filtered.length > 0} onChange={selectAll} className="accent-premium-gold" /></th>
-                <th className="text-left py-3 px-2">№ дела</th>
-                <th className="text-left py-3 px-2">ФИО</th>
-                <th className="text-left py-3 px-2 hidden lg:table-cell">Телефон</th>
-                <th className="text-left py-3 px-2 hidden xl:table-cell">ИИН</th>
-                <th className="text-right py-3 px-2">К возврату</th>
-                <th className="text-left py-3 px-2">Статус</th>
-                <th className="text-center py-3 px-2 w-24">Действия</th>
+              <tr>
+                <th className="w-8"><input type="checkbox" checked={filtered.length > 0 && selectedIds.size === filtered.length} onChange={selectAll} /></th>
+                <th>Дело</th>
+                <th>Клиент</th>
+                <th>Сумма ₸</th>
+                <th>Статус</th>
+                <th>Обновлён</th>
+                <th>Тип</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {filtered.map(c => (
-                <tr key={c.id} className={`border-b border-white/5 ${expandedId === c.id ? 'bg-white/5' : ''}`}>
-                  <td className="py-2.5 px-3"><input type="checkbox" checked={selectedIds.has(c.id)} onChange={() => toggleSelect(c.id)} className="accent-premium-gold" /></td>
-                  <td className="py-2.5 px-2 text-premium-gold font-mono text-xs">{c.caseNumber}</td>
-                  <td className="py-2.5 px-2">
-                    <button type="button" onClick={() => setExpandedId(expandedId === c.id ? null : c.id)} className="text-white/80 hover:text-premium-gold transition-colors text-left">{c.clientName}</button>
+                <tr key={c.id} className="border-t border-white/5 hover:bg-white/[0.03]">
+                  <td><input type="checkbox" checked={selectedIds.has(c.id)} onChange={() => toggleSelect(c.id)} /></td>
+                  <td className="font-mono text-premium-gold text-xs">{c.caseNumber}</td>
+                  <td>
+                    <button type="button" className="text-left text-white hover:text-premium-gold" onClick={() => setExpandedId(expandedId === c.id ? null : c.id)}>
+                      {c.clientName}
+                    </button>
+                    {c.crmClientId ? <div className="text-white/30 text-[11px]">CRM #{c.crmClientId}{c.coreUserId ? ` · Core #${c.coreUserId}` : ''}</div> : null}
                   </td>
-                  <td className="py-2.5 px-2 text-white/50 text-xs hidden lg:table-cell">{c.phone}</td>
-                  <td className="py-2.5 px-2 text-white/50 text-xs hidden xl:table-cell">{c.iin || '—'}</td>
-                  <td className="py-2.5 px-2 text-right text-white/80 font-medium">{formatCurrency(c.payoutAmount || c.amount)}</td>
-                  <td className="py-2.5 px-2"><span className={statusBadge(c.status)}>{statusLabel(c.status)}</span></td>
-                  <td className="py-2.5 px-2 text-center">
-                    <div className="flex items-center justify-center gap-1">
+                  <td>{formatCurrency(c.payoutAmount || c.amount)}</td>
+                  <td>
+                    <select
+                      className="admin-input !py-1 !px-2 text-xs max-w-[11rem]"
+                      value={normalizeClientStatus(c.status)}
+                      onChange={e => quickStatus(c, e.target.value as CanonicalClientStatus)}
+                    >
+                      {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </td>
+                  <td className="text-white/50 text-xs whitespace-nowrap">{formatDate(c.updatedAt)}</td>
+                  <td className="text-white/40 text-xs">{typeLabel(c.type)}</td>
+                  <td>
+                    <div className="flex gap-1 justify-end">
                       <button type="button" onClick={() => openEdit(c)} className="text-white/40 hover:text-premium-gold p-1 text-xs" title="Редактировать">✎</button>
                       <button type="button" onClick={() => handleDelete(c.id)} className="text-white/40 hover:text-red-400 p-1 text-xs" title="Удалить">✕</button>
                     </div>
@@ -412,11 +528,78 @@ export function ClientsSection() {
         })()}
       </div>
 
+      {showCrmPicker && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm" onClick={() => setShowCrmPicker(false)}>
+          <div className="bg-premium-navy-900 border border-white/10 rounded-t-2xl sm:rounded-2xl p-5 sm:p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+            <h2 className="text-lg font-bold text-white mb-1">Клиенты CRM «В работе»</h2>
+            <p className="text-white/40 text-xs mb-4">ФИО, ИИН, телефон и сумма подтягиваются из CRM/Core. Статус и комментарий на сайте задаёте вы.</p>
+            <div className="flex gap-2 mb-3">
+              <input
+                value={crmQ}
+                onChange={e => setCrmQ(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && loadCrm(crmQ)}
+                placeholder="Поиск в CRM…"
+                className="admin-input flex-1"
+              />
+              <button type="button" onClick={() => loadCrm(crmQ)} disabled={crmLoading} className="premium-btn premium-btn-primary text-sm !py-2 !px-4">
+                {crmLoading ? '…' : 'Найти'}
+              </button>
+            </div>
+            {crmError && <p className="text-red-400 text-sm mb-3">{crmError}</p>}
+            {!crmError && (
+              <p className="text-white/35 text-xs mb-2">{crmLoading ? 'Загрузка…' : `Найдено: ${crmTotal}`}</p>
+            )}
+            <div className="space-y-2 max-h-[55vh] overflow-y-auto">
+              {crmItems.map(item => (
+                <button
+                  key={item.crmClientId}
+                  type="button"
+                  onClick={() => pickCrmClient(item)}
+                  className="w-full text-left rounded-xl border border-white/10 bg-white/[0.03] hover:border-premium-gold/40 hover:bg-premium-gold/5 p-3 transition-colors"
+                >
+                  <div className="flex justify-between gap-2">
+                    <span className="text-white font-medium">{item.fullName}</span>
+                    <span className="text-premium-gold font-mono text-xs">{item.suggestedCaseNumber}</span>
+                  </div>
+                  <div className="text-white/45 text-xs mt-1 flex flex-wrap gap-x-3 gap-y-1">
+                    <span>{item.phone || 'нет телефона'}</span>
+                    <span>ИИН {item.iin || '—'}</span>
+                    <span>{item.amountKzt.toLocaleString('ru-RU')} ₸</span>
+                    <span>CRM #{item.crmClientId}</span>
+                  </div>
+                </button>
+              ))}
+              {!crmLoading && !crmError && crmItems.length === 0 && (
+                <p className="text-white/30 text-sm py-6 text-center">Нет клиентов со статусом «В работе»</p>
+              )}
+            </div>
+            <div className="flex justify-end mt-4">
+              <button type="button" onClick={() => setShowCrmPicker(false)} className="premium-btn premium-btn-outline text-sm !py-2 !px-4">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm" onClick={() => setShowForm(false)}>
           <div className="bg-premium-navy-900 border border-white/10 rounded-t-2xl sm:rounded-2xl p-5 sm:p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
-            <h2 className="text-lg font-bold text-white mb-4">{editId ? 'Редактировать' : 'Новый клиент'}</h2>
+            <h2 className="text-lg font-bold text-white mb-1">{editId ? 'Редактировать' : 'Клиент на сайте'}</h2>
+            {(form.crmClientId || form.coreUserId) && (
+              <p className="text-white/40 text-xs mb-3">
+                Связь: {form.crmClientId ? `CRM #${form.crmClientId}` : ''}{form.coreUserId ? ` · Core #${form.coreUserId}` : ''}
+              </p>
+            )}
             <div className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="admin-label">№ дела</label>
+                  <input value={form.caseNumber} onChange={e => setForm(v => ({ ...v, caseNumber: e.target.value }))} className="admin-input font-mono" />
+                </div>
+                <div>
+                  <label className="admin-label">Дата обновления (на сайте)</label>
+                  <input type="date" value={form.updatedAtDate} onChange={e => setForm(v => ({ ...v, updatedAtDate: e.target.value }))} className="admin-input" />
+                </div>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="admin-label">ФИО *</label>
@@ -458,7 +641,7 @@ export function ClientsSection() {
                 </div>
               </div>
               <div>
-                <label className="admin-label">Статус</label>
+                <label className="admin-label">Статус на сайте</label>
                 <select value={form.status} onChange={e => setForm(v => ({ ...v, status: e.target.value as CanonicalClientStatus }))} className="admin-input">
                   {STATUS_GROUPS.map(g => (
                     <optgroup key={g.label} label={g.label}>
@@ -479,7 +662,7 @@ export function ClientsSection() {
             <div className="flex justify-end gap-3 mt-5">
               <button type="button" onClick={() => setShowForm(false)} className="premium-btn premium-btn-outline text-sm !py-2 !px-4">Отмена</button>
               <button type="button" onClick={saveForm} disabled={saving} className="premium-btn premium-btn-primary text-sm !py-2 !px-4">
-                {saving ? 'Сохранение…' : editId ? 'Сохранить' : 'Создать клиента'}
+                {saving ? 'Сохранение…' : editId ? 'Сохранить' : 'Опубликовать на сайте'}
               </button>
             </div>
           </div>

@@ -31,6 +31,8 @@ export type ClientPayoutRecord = {
 };
 
 export const REGISTRY_STUB_COUNT = 1250;
+/** Decorative registry rows: always look “alive” (0…N days before today). */
+export const REGISTRY_STUB_MAX_AGE_DAYS = 7;
 
 const MALE_FIRST_NAMES = [
   "Александр", "Сергей", "Дмитрий", "Руслан", "Ержан", "Нурлан", "Айбек", "Марат", "Тимур", "Асхат",
@@ -150,7 +152,7 @@ export function getClientPayouts(total = REGISTRY_STUB_COUNT): ClientPayoutRecor
       balanceKzt: amount - paid,
       status,
       bank: pick(BANKS, rnd),
-      updatedAt: formatDate(Math.floor(rnd() * 120)),
+      updatedAt: formatDate(Math.floor(rnd() * (REGISTRY_STUB_MAX_AGE_DAYS + 1))),
       statusNote:
         status === "Оплачено"
           ? "Выплата произведена в полном объёме."

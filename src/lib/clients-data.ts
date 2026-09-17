@@ -54,6 +54,9 @@ export interface ClientRecord {
   history: ClientHistoryEntry[];
   createdAt: string;
   updatedAt: string;
+  /** Link back to HERMES CRM (SoT identity) */
+  crmClientId?: number;
+  coreUserId?: number;
 }
 
 export interface ClientsDataFile {
