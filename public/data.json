@@ -1,5 +1,28 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-17T11:44:58.492Z",
-  "clients": []
+  "updatedAt": "2026-09-17T12:25:00.511Z",
+  "clients": [
+    {
+      "id": "reg_mu5i5hlw_y6e8yw",
+      "caseNumber": "HERMES-265",
+      "clientName": "Marina Nikonova",
+      "iin": "",
+      "phone": "77078242771",
+      "email": "",
+      "type": "fraud",
+      "amount": 11166669,
+      "payoutAmount": 11166669,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "Согласование",
+      "regulatorNote": "Ожидаться оплата 175 000 KZT",
+      "internalNote": "Импорт из CRM #861 · Core #265 · баланс 11166668.74 KZT",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-09-19T09:00:00.000Z",
+      "updatedAt": "2026-09-19T09:00:00.000Z",
+      "crmClientId": 861,
+      "coreUserId": 265
+    }
+  ]
 }
