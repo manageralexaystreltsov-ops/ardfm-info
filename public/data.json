@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-17T12:25:00.511Z",
+  "updatedAt": "2026-09-17T13:00:32.966Z",
   "clients": [
     {
       "id": "reg_mu5i5hlw_y6e8yw",
       "caseNumber": "HERMES-265",
-      "clientName": "Marina Nikonova",
+      "clientName": "Никонова Марина Андреевна",
       "iin": "",
       "phone": "77078242771",
       "email": "",
@@ -18,9 +18,18 @@
       "regulatorNote": "Ожидаться оплата 175 000 KZT",
       "internalNote": "Импорт из CRM #861 · Core #265 · баланс 11166668.74 KZT",
       "comments": [],
-      "history": [],
+      "history": [
+        {
+          "id": "h_mu5jf77p_1",
+          "field": "clientName",
+          "oldValue": "Marina Nikonova",
+          "newValue": "Никонова Марина Андреевна",
+          "author": "MANAGER_REPAIR",
+          "createdAt": "2026-09-17T13:00:32.965Z"
+        }
+      ],
       "createdAt": "2026-09-19T09:00:00.000Z",
-      "updatedAt": "2026-09-19T09:00:00.000Z",
+      "updatedAt": "2026-09-17T13:00:32.965Z",
       "crmClientId": 861,
       "coreUserId": 265
     }
