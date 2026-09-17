@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-17T13:00:32.966Z",
+  "updatedAt": "2026-09-17T13:50:53.456Z",
   "clients": [
     {
       "id": "reg_mu5i5hlw_y6e8yw",
       "caseNumber": "HERMES-265",
       "clientName": "Никонова Марина Андреевна",
-      "iin": "",
+      "iin": "660513135061",
       "phone": "77078242771",
       "email": "",
       "type": "fraud",
@@ -29,9 +29,11 @@
         }
       ],
       "createdAt": "2026-09-19T09:00:00.000Z",
-      "updatedAt": "2026-09-17T13:00:32.965Z",
+      "updatedAt": "2026-09-17T13:50:53.456Z",
       "crmClientId": 861,
-      "coreUserId": 265
+      "coreUserId": 265,
+      "plannedPayoutFrom": "2026-09-17",
+      "plannedPayoutTo": "2026-09-20"
     }
   ]
 }
