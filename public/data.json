@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-18T13:31:16.658Z",
+  "updatedAt": "2026-09-18T13:54:26.156Z",
   "clients": [
+    {
+      "id": "reg_mu70scmk_nplyw4",
+      "caseNumber": "HERMES-10116",
+      "clientName": "Венера Юлдашева",
+      "iin": "",
+      "phone": "77754282797",
+      "email": "venera231220@gmail.com",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #3369 · Core #10116",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-09-18T13:54:26.155Z",
+      "updatedAt": "2026-09-18T13:54:26.155Z",
+      "plannedPayoutFrom": "2026-09-18",
+      "plannedPayoutTo": "2026-09-21",
+      "crmClientId": 3369,
+      "coreUserId": 10116
+    },
     {
       "id": "reg_mu6zykhe_aut0uj",
       "caseNumber": "HERMES-9924",
