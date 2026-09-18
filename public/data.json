@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-18T10:04:19.066Z",
+  "updatedAt": "2026-09-18T13:31:16.658Z",
   "clients": [
+    {
+      "id": "reg_mu6zykhe_aut0uj",
+      "caseNumber": "HERMES-9924",
+      "clientName": "Nafisa Nazarbaeva",
+      "iin": "",
+      "phone": "77473893551",
+      "email": "nafisa.bazartayeva@mail.ru",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #964 · Core #9924",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-09-18T13:31:16.658Z",
+      "updatedAt": "2026-09-18T13:31:16.658Z",
+      "plannedPayoutFrom": "2026-09-18",
+      "plannedPayoutTo": "2026-09-21",
+      "crmClientId": 964,
+      "coreUserId": 9924
+    },
     {
       "id": "reg_mu6skes0_bkf07w",
       "caseNumber": "HERMES-10064",
