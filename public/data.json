@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-17T15:53:13.019Z",
+  "updatedAt": "2026-09-18T08:37:38.742Z",
   "clients": [
     {
       "id": "reg_mu5pkqaz_0qvq5i",
       "caseNumber": "HERMES-9801",
-      "clientName": "Мурат Калиев",
-      "iin": "",
+      "clientName": "Калиев Мурат Талгатович",
+      "iin": "560117350157",
       "phone": "77078041527",
       "email": "kurulustau@gmail.com",
       "type": "fraud",
@@ -18,9 +18,26 @@
       "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
       "internalNote": "Автопубликация CRM #6241 · Core #9801",
       "comments": [],
-      "history": [],
+      "history": [
+        {
+          "id": "h_mu6pgyet_n",
+          "field": "clientName",
+          "oldValue": "Мурат Калиев",
+          "newValue": "Калиев Мурат Талгатович",
+          "author": "MANAGER",
+          "createdAt": "2026-09-18T08:37:38.741Z"
+        },
+        {
+          "id": "h_mu6pgyet_i",
+          "field": "iin",
+          "oldValue": "",
+          "newValue": "560117350157",
+          "author": "MANAGER",
+          "createdAt": "2026-09-18T08:37:38.741Z"
+        }
+      ],
       "createdAt": "2026-09-17T15:52:48.682Z",
-      "updatedAt": "2026-09-17T15:52:48.682Z",
+      "updatedAt": "2026-09-18T08:37:38.741Z",
       "plannedPayoutFrom": "2026-09-17",
       "plannedPayoutTo": "2026-09-20",
       "crmClientId": 6241,
