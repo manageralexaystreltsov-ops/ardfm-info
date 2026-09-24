@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-22T06:30:19.663Z",
+  "updatedAt": "2026-09-24T06:58:58.026Z",
   "clients": [
+    {
+      "id": "reg_muf6l5yi_c1p0am",
+      "caseNumber": "HERMES-10115",
+      "clientName": "Венера Мәметәлі",
+      "iin": "",
+      "phone": "77055191393",
+      "email": "mametalivenera@mail.com",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #3367 · Core #10115",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-09-24T06:58:58.026Z",
+      "updatedAt": "2026-09-24T06:58:58.026Z",
+      "plannedPayoutFrom": "2026-09-24",
+      "plannedPayoutTo": "2026-09-27",
+      "crmClientId": 3367,
+      "coreUserId": 10115
+    },
     {
       "id": "reg_mu70scmk_nplyw4",
       "caseNumber": "HERMES-10116",
