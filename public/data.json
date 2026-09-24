@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-24T13:19:58.508Z",
+  "updatedAt": "2026-09-24T16:23:52.166Z",
   "clients": [
     {
       "id": "reg_mufk757w_zn3qit",
       "caseNumber": "CRM-8252",
-      "clientName": "Дмитрий Леонидович Тритенко",
-      "iin": "",
+      "clientName": "Тритенко Дмитрий Леонидович",
+      "iin": "760309399046",
       "phone": "77713527248",
       "email": "dmitrij.tritnko.76@gmail.com",
       "type": "fraud",
@@ -18,12 +18,30 @@
       "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
       "internalNote": "Автопубликация CRM #8252",
       "comments": [],
-      "history": [],
+      "history": [
+        {
+          "id": "h_mufqrmue_n",
+          "field": "clientName",
+          "oldValue": "Дмитрий Леонидович Тритенко",
+          "newValue": "Тритенко Дмитрий Леонидович",
+          "author": "MANAGER",
+          "createdAt": "2026-09-24T16:23:52.166Z"
+        },
+        {
+          "id": "h_mufqrmue_i",
+          "field": "iin",
+          "oldValue": "",
+          "newValue": "760309399046",
+          "author": "MANAGER",
+          "createdAt": "2026-09-24T16:23:52.166Z"
+        }
+      ],
       "createdAt": "2026-09-24T13:19:58.507Z",
-      "updatedAt": "2026-09-24T13:19:58.507Z",
+      "updatedAt": "2026-09-24T16:23:52.166Z",
       "plannedPayoutFrom": "2026-09-24",
       "plannedPayoutTo": "2026-09-27",
-      "crmClientId": 8252
+      "crmClientId": 8252,
+      "coreUserId": 10165
     },
     {
       "id": "reg_muf6l5yi_c1p0am",
