@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-28T06:01:53.664Z",
+  "updatedAt": "2026-09-28T06:02:29.005Z",
   "clients": [
     {
       "id": "reg_mukub6dc_sxc42y",
       "caseNumber": "HERMES-1075",
-      "clientName": "Ахметова Ахметова",
+      "clientName": "Ахметова Сания",
       "iin": "301015051121",
       "phone": "77014998852",
       "email": "",
@@ -18,9 +18,18 @@
       "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
       "internalNote": "Автопубликация CRM #7549 · Core #1075",
       "comments": [],
-      "history": [],
+      "history": [
+        {
+          "id": "h_mukubxn1_n",
+          "field": "clientName",
+          "oldValue": "Ахметова Ахметова",
+          "newValue": "Ахметова Сания",
+          "author": "MANAGER",
+          "createdAt": "2026-09-28T06:02:29.005Z"
+        }
+      ],
       "createdAt": "2026-09-28T06:01:53.664Z",
-      "updatedAt": "2026-09-28T06:01:53.664Z",
+      "updatedAt": "2026-09-28T06:02:29.005Z",
       "plannedPayoutFrom": "2026-09-28",
       "plannedPayoutTo": "2026-10-01",
       "crmClientId": 7549,
