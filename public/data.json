@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-24T16:23:52.166Z",
+  "updatedAt": "2026-09-28T06:01:53.664Z",
   "clients": [
+    {
+      "id": "reg_mukub6dc_sxc42y",
+      "caseNumber": "HERMES-1075",
+      "clientName": "Ахметова Ахметова",
+      "iin": "301015051121",
+      "phone": "77014998852",
+      "email": "",
+      "type": "fraud",
+      "amount": 20359893,
+      "payoutAmount": 20359893,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #7549 · Core #1075",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-09-28T06:01:53.664Z",
+      "updatedAt": "2026-09-28T06:01:53.664Z",
+      "plannedPayoutFrom": "2026-09-28",
+      "plannedPayoutTo": "2026-10-01",
+      "crmClientId": 7549,
+      "coreUserId": 1075
+    },
     {
       "id": "reg_mufk757w_zn3qit",
       "caseNumber": "CRM-8252",
