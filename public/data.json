@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-28T06:02:29.005Z",
+  "updatedAt": "2026-09-29T09:14:16.666Z",
   "clients": [
+    {
+      "id": "reg_mumgmfoa_55i0jt",
+      "caseNumber": "HERMES-10440",
+      "clientName": "Темиржан Узакович",
+      "iin": "",
+      "phone": "77755225592",
+      "email": "dybysovtemirzan1@gmail.com",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #8166 · Core #10440",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-09-29T09:14:16.665Z",
+      "updatedAt": "2026-09-29T09:14:16.665Z",
+      "plannedPayoutFrom": "2026-09-29",
+      "plannedPayoutTo": "2026-10-02",
+      "crmClientId": 8166,
+      "coreUserId": 10440
+    },
     {
       "id": "reg_mukub6dc_sxc42y",
       "caseNumber": "HERMES-1075",
