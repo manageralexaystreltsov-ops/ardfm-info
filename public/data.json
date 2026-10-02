@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-02T13:21:59.481Z",
+  "updatedAt": "2026-10-02T13:22:33.681Z",
   "clients": [
     {
       "id": "reg_muqzsjw9_3eolql",
       "caseNumber": "HERMES-18231",
-      "clientName": "Жазира Сериккызы",
+      "clientName": "Ногаева Жазира Сериккызы",
       "iin": "950208400827",
       "phone": "77015737325",
       "email": "zhaziraserikkuzu@gmail.com",
@@ -18,9 +18,18 @@
       "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
       "internalNote": "Автопубликация CRM #4521 · Core #18231",
       "comments": [],
-      "history": [],
+      "history": [
+        {
+          "id": "h_muqztaa9_n",
+          "field": "clientName",
+          "oldValue": "Жазира Сериккызы",
+          "newValue": "Ногаева Жазира Сериккызы",
+          "author": "MANAGER",
+          "createdAt": "2026-10-02T13:22:33.681Z"
+        }
+      ],
       "createdAt": "2026-10-02T13:21:59.480Z",
-      "updatedAt": "2026-10-02T13:21:59.480Z",
+      "updatedAt": "2026-10-02T13:22:33.681Z",
       "plannedPayoutFrom": "2026-10-02",
       "plannedPayoutTo": "2026-10-05",
       "crmClientId": 4521,
