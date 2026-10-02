@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-01T14:02:51.836Z",
+  "updatedAt": "2026-10-02T08:56:46.420Z",
   "clients": [
+    {
+      "id": "reg_muqqbhar_8fgh6s",
+      "caseNumber": "HERMES-18228",
+      "clientName": "UMBA",
+      "iin": "",
+      "phone": "77717634428",
+      "email": "nurhatumbetov@gmail.com",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #1381 · Core #18228",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-10-02T08:56:46.419Z",
+      "updatedAt": "2026-10-02T08:56:46.419Z",
+      "plannedPayoutFrom": "2026-10-02",
+      "plannedPayoutTo": "2026-10-05",
+      "crmClientId": 1381,
+      "coreUserId": 18228
+    },
     {
       "id": "reg_mumgmfoa_55i0jt",
       "caseNumber": "HERMES-10440",
