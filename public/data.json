@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-02T08:56:46.420Z",
+  "updatedAt": "2026-10-02T13:21:59.481Z",
   "clients": [
+    {
+      "id": "reg_muqzsjw9_3eolql",
+      "caseNumber": "HERMES-18231",
+      "clientName": "Жазира Сериккызы",
+      "iin": "950208400827",
+      "phone": "77015737325",
+      "email": "zhaziraserikkuzu@gmail.com",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #4521 · Core #18231",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-10-02T13:21:59.480Z",
+      "updatedAt": "2026-10-02T13:21:59.480Z",
+      "plannedPayoutFrom": "2026-10-02",
+      "plannedPayoutTo": "2026-10-05",
+      "crmClientId": 4521,
+      "coreUserId": 18231
+    },
     {
       "id": "reg_muqqbhar_8fgh6s",
       "caseNumber": "HERMES-18228",
