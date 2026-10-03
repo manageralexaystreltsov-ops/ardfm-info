@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-03T10:05:56.430Z",
+  "updatedAt": "2026-10-03T10:06:21.727Z",
   "clients": [
     {
       "id": "reg_muqzsjw9_3eolql",
@@ -394,9 +394,9 @@
         }
       ],
       "createdAt": "2026-09-17T12:25:00.511Z",
-      "updatedAt": "2026-10-03T10:05:55.883Z",
-      "plannedPayoutFrom": "2026-09-18",
-      "plannedPayoutTo": "2026-09-22",
+      "updatedAt": "2026-10-03T10:06:21.436Z",
+      "plannedPayoutFrom": "2026-11-02",
+      "plannedPayoutTo": "2026-11-22",
       "crmClientId": 861,
       "coreUserId": 265
     },
