@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-03T10:06:21.727Z",
+  "updatedAt": "2026-10-05T15:50:09.682Z",
   "clients": [
+    {
+      "id": "reg_muvfenma_n6mb5w",
+      "caseNumber": "HERMES-240",
+      "clientName": "Beisebai Ungarbaev",
+      "iin": "",
+      "phone": "77752539239",
+      "email": "",
+      "type": "fraud",
+      "amount": 6892847,
+      "payoutAmount": 6892847,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #314 · Core #240",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-10-05T15:50:09.682Z",
+      "updatedAt": "2026-10-05T15:50:09.682Z",
+      "plannedPayoutFrom": "2026-10-05",
+      "plannedPayoutTo": "2026-10-08",
+      "crmClientId": 314,
+      "coreUserId": 240
+    },
     {
       "id": "reg_muqzsjw9_3eolql",
       "caseNumber": "HERMES-18231",
