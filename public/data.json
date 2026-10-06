@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T15:50:09.682Z",
+  "updatedAt": "2026-10-06T06:04:41.075Z",
   "clients": [
+    {
+      "id": "reg_muw9xkvm_cjrr7n",
+      "caseNumber": "HERMES-5153",
+      "clientName": "Кажынов Берик Мухамедиярович",
+      "iin": "",
+      "phone": "77013546239",
+      "email": "berik.kazh@outlook.com",
+      "type": "fraud",
+      "amount": 12344,
+      "payoutAmount": 12344,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #5153 · Core #5153",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-10-06T06:04:41.074Z",
+      "updatedAt": "2026-10-06T06:04:41.074Z",
+      "plannedPayoutFrom": "2026-10-06",
+      "plannedPayoutTo": "2026-10-09",
+      "crmClientId": 5153,
+      "coreUserId": 5153
+    },
     {
       "id": "reg_muvfenma_n6mb5w",
       "caseNumber": "HERMES-240",
