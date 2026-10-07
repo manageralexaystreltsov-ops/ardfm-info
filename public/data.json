@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-07T11:05:44.255Z",
+  "updatedAt": "2026-10-07T13:31:19.109Z",
   "clients": [
     {
       "id": "reg_muy04l6n_akuhu6",
@@ -175,8 +175,8 @@
     {
       "id": "reg_mumgmfoa_55i0jt",
       "caseNumber": "HERMES-10440",
-      "clientName": "Темиржан Узакович",
-      "iin": "",
+      "clientName": "Дыбысов Темиржан",
+      "iin": "470110350368",
       "phone": "77755225592",
       "email": "dybysovtemirzan1@gmail.com",
       "type": "fraud",
@@ -204,10 +204,26 @@
           "newValue": "Приостановлено",
           "author": "CRM",
           "createdAt": "2026-10-01T14:02:51.540Z"
+        },
+        {
+          "id": "h_muy5bt1h_n",
+          "field": "clientName",
+          "oldValue": "Темиржан Узакович",
+          "newValue": "Дыбысов Темиржан",
+          "author": "MANAGER",
+          "createdAt": "2026-10-07T13:31:19.109Z"
+        },
+        {
+          "id": "h_muy5bt1h_i",
+          "field": "iin",
+          "oldValue": "",
+          "newValue": "470110350368",
+          "author": "MANAGER",
+          "createdAt": "2026-10-07T13:31:19.109Z"
         }
       ],
       "createdAt": "2026-09-29T09:14:16.665Z",
-      "updatedAt": "2026-10-01T14:02:51.540Z",
+      "updatedAt": "2026-10-07T13:31:19.109Z",
       "plannedPayoutFrom": "2026-09-29",
       "plannedPayoutTo": "2026-10-02",
       "crmClientId": 8166,
