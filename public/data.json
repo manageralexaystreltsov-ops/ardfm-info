@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-07T10:18:36.226Z",
+  "updatedAt": "2026-10-07T10:18:51.360Z",
   "clients": [
     {
       "id": "reg_muwlw8gz_n82dgo",
       "caseNumber": "HERMES-20758",
-      "clientName": "Анатолий Утенко",
+      "clientName": "Утенко Анатолий Яковлевич",
       "iin": "660617301821",
       "phone": "77082058501",
       "email": "utenkoanatolij@gmail.com",
@@ -26,10 +26,18 @@
           "newValue": "660617301821",
           "author": "MANAGER",
           "createdAt": "2026-10-07T10:18:36.225Z"
+        },
+        {
+          "id": "h_muxygaqo_n",
+          "field": "clientName",
+          "oldValue": "Анатолий Утенко",
+          "newValue": "Утенко Анатолий Яковлевич",
+          "author": "MANAGER",
+          "createdAt": "2026-10-07T10:18:51.360Z"
         }
       ],
       "createdAt": "2026-10-06T11:39:33.730Z",
-      "updatedAt": "2026-10-07T10:18:36.225Z",
+      "updatedAt": "2026-10-07T10:18:51.360Z",
       "plannedPayoutFrom": "2026-10-06",
       "plannedPayoutTo": "2026-10-09",
       "crmClientId": 2461,
