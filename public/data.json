@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-06T11:39:33.731Z",
+  "updatedAt": "2026-10-07T10:18:36.226Z",
   "clients": [
     {
       "id": "reg_muwlw8gz_n82dgo",
       "caseNumber": "HERMES-20758",
       "clientName": "Анатолий Утенко",
-      "iin": "",
+      "iin": "660617301821",
       "phone": "77082058501",
       "email": "utenkoanatolij@gmail.com",
       "type": "fraud",
@@ -18,9 +18,18 @@
       "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
       "internalNote": "Автопубликация CRM #2461 · Core #20758",
       "comments": [],
-      "history": [],
+      "history": [
+        {
+          "id": "h_muxyfz29_i",
+          "field": "iin",
+          "oldValue": "",
+          "newValue": "660617301821",
+          "author": "MANAGER",
+          "createdAt": "2026-10-07T10:18:36.225Z"
+        }
+      ],
       "createdAt": "2026-10-06T11:39:33.730Z",
-      "updatedAt": "2026-10-06T11:39:33.730Z",
+      "updatedAt": "2026-10-07T10:18:36.225Z",
       "plannedPayoutFrom": "2026-10-06",
       "plannedPayoutTo": "2026-10-09",
       "crmClientId": 2461,
