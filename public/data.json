@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-07T13:31:19.109Z",
+  "updatedAt": "2026-10-07T20:00:51.999Z",
   "clients": [
+    {
+      "id": "reg_muyj8rof_hvbju0",
+      "caseNumber": "HERMES-20781",
+      "clientName": "Гаузер Лиана Равильевна",
+      "iin": "840430450392",
+      "phone": "77055032968",
+      "email": "",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #5648 · Core #20781",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-10-07T20:00:51.998Z",
+      "updatedAt": "2026-10-07T20:00:51.998Z",
+      "plannedPayoutFrom": "2026-10-07",
+      "plannedPayoutTo": "2026-10-10",
+      "crmClientId": 5648,
+      "coreUserId": 20781
+    },
     {
       "id": "reg_muy04l6n_akuhu6",
       "caseNumber": "HERMES-5622",
