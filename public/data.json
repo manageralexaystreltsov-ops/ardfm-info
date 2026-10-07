@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-07T10:18:51.360Z",
+  "updatedAt": "2026-10-07T11:05:44.255Z",
   "clients": [
+    {
+      "id": "reg_muy04l6n_akuhu6",
+      "caseNumber": "HERMES-5622",
+      "clientName": "Лариса Фатеева",
+      "iin": "",
+      "phone": "77082089432",
+      "email": "larisafateeva1973@icloud.com",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #5622 · Core #5622",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-10-07T11:05:44.254Z",
+      "updatedAt": "2026-10-07T11:05:44.254Z",
+      "plannedPayoutFrom": "2026-10-07",
+      "plannedPayoutTo": "2026-10-10",
+      "crmClientId": 5622,
+      "coreUserId": 5622
+    },
     {
       "id": "reg_muwlw8gz_n82dgo",
       "caseNumber": "HERMES-20758",
