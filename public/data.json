@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-08T07:18:59.510Z",
+  "updatedAt": "2026-10-08T08:13:01.049Z",
   "clients": [
+    {
+      "id": "reg_muz9ebjt_duo7ls",
+      "caseNumber": "HERMES-4535",
+      "clientName": "Жакупбеков Болат Омарович",
+      "iin": "",
+      "phone": "77754431690",
+      "email": "",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #4535 · Core #4535",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-10-08T08:13:01.048Z",
+      "updatedAt": "2026-10-08T08:13:01.048Z",
+      "plannedPayoutFrom": "2026-10-08",
+      "plannedPayoutTo": "2026-10-11",
+      "crmClientId": 4535,
+      "coreUserId": 4535
+    },
     {
       "id": "reg_muyj8rof_hvbju0",
       "caseNumber": "HERMES-20781",
