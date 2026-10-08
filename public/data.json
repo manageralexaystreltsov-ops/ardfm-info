@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-08T05:32:59.778Z",
+  "updatedAt": "2026-10-08T07:16:05.243Z",
   "clients": [
     {
       "id": "reg_muyj8rof_hvbju0",
@@ -29,8 +29,8 @@
     {
       "id": "reg_muy04l6n_akuhu6",
       "caseNumber": "HERMES-5622",
-      "clientName": "Лариса Фатеева",
-      "iin": "",
+      "clientName": "Фатеева Лариса Анатольевна",
+      "iin": "730324400713",
       "phone": "77082089432",
       "email": "larisafateeva1973@icloud.com",
       "type": "fraud",
@@ -42,13 +42,30 @@
       "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
       "internalNote": "Автопубликация CRM #5622 · Core #5622",
       "comments": [],
-      "history": [],
+      "history": [
+        {
+          "id": "h_muz7d3wb_n",
+          "field": "clientName",
+          "oldValue": "Лариса Фатеева",
+          "newValue": "Фатеева Лариса Анатольевна",
+          "author": "MANAGER",
+          "createdAt": "2026-10-08T07:16:05.243Z"
+        },
+        {
+          "id": "h_muz7d3wb_i",
+          "field": "iin",
+          "oldValue": "",
+          "newValue": "730324400713",
+          "author": "MANAGER",
+          "createdAt": "2026-10-08T07:16:05.243Z"
+        }
+      ],
       "createdAt": "2026-10-07T11:05:44.254Z",
-      "updatedAt": "2026-10-07T11:05:44.254Z",
+      "updatedAt": "2026-10-08T07:16:05.243Z",
       "plannedPayoutFrom": "2026-10-07",
       "plannedPayoutTo": "2026-10-10",
       "crmClientId": 5622,
-      "coreUserId": 5622
+      "coreUserId": 20780
     },
     {
       "id": "reg_muwlw8gz_n82dgo",
