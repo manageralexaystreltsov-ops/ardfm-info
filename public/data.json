@@ -1,7 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-08T08:13:01.049Z",
+  "updatedAt": "2026-10-08T12:34:35.544Z",
   "clients": [
+    {
+      "id": "reg_muziqpi0_73rwfn",
+      "caseNumber": "HERMES-7564",
+      "clientName": "Сапарбаев Алибек Шамшиевич",
+      "iin": "",
+      "phone": "77051431813",
+      "email": "alisafarvaew@ru.com",
+      "type": "fraud",
+      "amount": 0,
+      "payoutAmount": 0,
+      "paidAmount": 0,
+      "bank": "Kaspi Bank",
+      "status": "На рассмотрении",
+      "regulatorNote": "Дело принято в работу. Срок выплаты указан в плане.",
+      "internalNote": "Автопубликация CRM #7564 · Core #7564",
+      "comments": [],
+      "history": [],
+      "createdAt": "2026-10-08T12:34:35.543Z",
+      "updatedAt": "2026-10-08T12:34:35.543Z",
+      "plannedPayoutFrom": "2026-10-08",
+      "plannedPayoutTo": "2026-10-11",
+      "crmClientId": 7564,
+      "coreUserId": 7564
+    },
     {
       "id": "reg_muz9ebjt_duo7ls",
       "caseNumber": "HERMES-4535",
